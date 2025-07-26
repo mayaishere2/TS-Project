@@ -3,6 +3,7 @@ app.py
 Streamlit interface to use the trained Random Forest pipeline (FFT + PCA).
 """
 
+import sklearn
 import streamlit as st
 import pandas as pd
 import joblib
@@ -14,7 +15,7 @@ st.title("Sleep Stage Classification (FFT + PCA + Random Forest)")
 st.write("This app uses a trained Random Forest model to classify sleep stages from time-series data using FFT and PCA features.")
 st.write("We had to find the fitting model to handle this case as it was unlabeled data and the steps we went through from data analysis to final model choosing are thouroughly documented in the notebook: https://colab.research.google.com/drive/16hfWjG8bzLXIEstCrhjPEklaF_nMSC9D#scrollTo=tZj63qR9_W_M")
 st.write("Upload a CSV file containing raw time-series data (no FFT applied), or download our **training dataset** for testing.")
-
+st.cache_resource.clear()
 # ---- Custom FFT Transformer ----
 class FFTTransformer(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
